@@ -2,25 +2,18 @@
 
 
 ## Aim
-
-Write your aim here.
-
-Example:
-
-> To identify a real-world sequential decision-making problem and represent it formally as a Markov Decision Process by defining its states, actions, rewards, transitions, and Python representation.
-
----
+To represent an Automatic Plant Watering System as a Markov Decision Process (MDP) by defining its states, actions, transition probabilities, rewards, and Python representation.
 
 ## Problem Statement
 
 ### Problem Description
 
-Write your answer here.
+An Automatic Plant Watering System decides when to water a plant based on the soil moisture level. The system identifies whether the soil is dry, moist, or wet.
 
-Describe the real-world application that you selected.
+If the soil is dry, the system waters the plant. If the soil is moist, the system waits. If the soil is wet, the system stops watering.
 
+The system uses an MDP to select suitable actions, maintain proper soil moisture, and save water.
 
----
 
 ## MDP Components
 
@@ -40,32 +33,41 @@ Where:
 | $R$ | Reward function |
 | $\gamma$ | Discount factor |
 
+For this system:
+
+- S: Dry, Moist, Wet
+- A: Water, Wait
+- P: Probability of moving to the next soil condition
+- R: Reward or penalty for an action
+- γ: 0.9
+
 ---
 
 ## State Space
 
-Write your answer here.
+The state space represents all possible soil conditions.
 
-The state space should list all possible situations in which the agent can exist.
 
-Example format:
 
 ```text
 S = {
-    State 1,
-    State 2,
-    State 3,
-    ...
-}
+      Dry,
+      Moist,
+      Wet 
+    }
 ```
 
-
+- Dry: The soil needs water.
+- Moist: The soil has sufficient moisture.
+- Wet: The soil contains excess water.
 
 ---
 
 ## Sample State
 
-Write your answer here.
+Current State = Dry
+
+The soil is dry, so the plant needs water.
 
 A sample state is one specific example from the state space.
 
@@ -75,41 +77,41 @@ A sample state is one specific example from the state space.
 
 ## Action Space
 
-Write your answer here.
+The action space represents all possible actions taken by the watering system
 
-The action space should list all possible actions available to the agent.
-
-Example format:
 
 ```text
 A = {
-    Action 1,
-    Action 2,
-    Action 3,
-    ...
+     Water,
+     Wait,
+     Stop
 }
 ```
-
+- Water: Supply water to the plant.
+- Wait: Wait without supplying water.
+- Stop: Keep the water pump OFF.
 
 ---
 
 ## Sample Action
 
-Write your answer here.
+
 
 A sample action is one action selected from the action space.
 
+Current State = Dry
+Selected Action = Water
 
+When the soil is dry, the system selects the Water action.
 
 ---
 
 ## Transition Probability
 
-Write your answer here.
 
-The transition probability explains how the environment moves from one state to another after an action is taken.
+Transition probability describes the probability of reaching the next state after performing an action.
 
-General form:
+
 
 $$
 P(s' \mid s,a)
@@ -139,45 +141,79 @@ $$
 ---
 
 ## Graphical Representation
+Draw the following simple MDP graph in your record
+  
+<img width="460" height="433" alt="image" src="https://github.com/user-attachments/assets/4ecdb258-d719-4ddc-9524-87de3f992297" />
 
-Write your answer here.
+The graph is a simplified illustration of the watering decisions. Write the transition probabilities from the table beside the corresponding arrows if required.
 
-Draw the MDP graph.
-
-The graph should include:
-
-1. States as nodes.
-2. Actions as arrows.
-3. Rewards on transitions.
-4. Transition probabilities if applicable.
 
 
 ---
 
 ## Python Representation
 
-Write your code here.
+
 
 Use Python dictionaries to represent the MDP.
 
-
 ```python
-# MDP Representation using Python
-# print("Name:       ")
-# print("Register Number:     ")
+MDP Representation using Python
+# print("Name: Sasmina S   ")
+# print("Register Number:  212225230254   ")
+states = {
+    0: "Dry",
+    1: "Moist",
+    2: "Wet"
+}
+actions = {
+    0: "Water",
+    1: "Wait"
+}
+P = {
+    0: {
+        0: [(1.0, 1, 5, False)],
 
+        1: [(1.0, 0, -5, False)]
+    },
+    
+
+    1: {
+        0: [(1.0, 2, -2, False)],
+        
+        1: [(1.0, 1, 10, False)]
+    },
+
+    
+    2: {
+        0: [(1.0, 2, -5, False)],
+        
+        1: [(1.0, 1, 3, False)]
+    }
+}
+print("States:")
+print(states)
+print("\nActions:")
+print(actions)
+print("\nMDP Transition Table (P):")
+print(P)
+print("\nTransition Details:")
+for state, action_list in P.items():
+    for action, transitions in action_list.items():
+        for probability, next_state, reward, done in transitions:
+            print(
+                states[state], "+", actions[action],
+                "->", states[next_state],
+                "| Probability:", probability,
+                "| Reward:", reward
+            )
 ```
 ---
 ## Output
-
-Write your Python output here.
-
-
----
+<img width="444" height="278" alt="image" src="https://github.com/user-attachments/assets/1cf127a0-c138-41e7-bba7-7a76668fab1a" />
 
 ## Result
-
-Write your result here.
+Thus, the Automatic Plant Watering System was successfully represented as a Markov Decision Process using Python dictionaries. The states, actions, transition probabilities, and reward function were defined. The system demonstrates how an agent can select actions to maintain suitable soil moisture and avoid unnecessary watering.
 
 
 
