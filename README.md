@@ -100,6 +100,7 @@ A = {
 A sample action is one action selected from the action space.
 
 Current State = Dry
+
 Selected Action = Water
 
 When the soil is dry, the system selects the Water action.
@@ -117,27 +118,53 @@ $$
 P(s' \mid s,a)
 $$
 
-This means:
 
-> Probability of reaching next state $s'$ after taking action $a$ in current state $s$.
+For this example, the transitions are deterministic, meaning each state-action pair has one defined next state.
 
 
+| Current State | Action | Next State | Probability |
+| ------------- | ------ | ---------- | ----------: |
+| Dry           | Water  | Moist      |         1.0 |
+| Dry           | Wait   | Dry        |         1.0 |
+| Moist         | Water  | Wet        |         1.0 |
+| Moist         | Wait   | Moist      |         1.0 |
+| Wet           | Water  | Wet        |         1.0 |
+| Wet           | Wait   | Moist      |         1.0 |
+
+
+
+##### A probability of 1.0 means the transition always leads to the specified next state in this simplified model.
 ---
 
 ## Reward Function
 
-Write your answer here.
-
 The reward function defines the feedback received by the agent after taking an action.
 
-General form:
+
 
 $$
 R(s,a,s')
 $$
 
+| Current State | Action | Next State | Reward |
+| ------------- | ------ | ---------- | -----: |
+| Dry           | Water  | Moist      |     +5 |
+| Dry           | Wait   | Dry        |     -5 |
+| Moist         | Water  | Wet        |     -2 |
+| Moist         | Wait   | Moist      |    +10 |
+| Wet           | Water  | Wet        |     -5 |
+| Wet           | Wait   | Moist      |     +3 |
 
+**Explanation:**
 
+* +5: Watering dry soil is beneficial.
+* -5: Leaving dry soil without water is undesirable.
+* -2: Adding water to already moist soil is unnecessary.
+* +10: Maintaining suitable soil moisture is rewarded.
+* -5: Adding water to wet soil is undesirable.
+* +3: Waiting when the soil is wet helps avoid excessive watering.
+
+##### These rewards are illustrative values chosen for this simplified example.
 ---
 
 ## Graphical Representation
@@ -213,7 +240,8 @@ for state, action_list in P.items():
 <img width="444" height="278" alt="image" src="https://github.com/user-attachments/assets/1cf127a0-c138-41e7-bba7-7a76668fab1a" />
 
 ## Result
-Thus, the Automatic Plant Watering System was successfully represented as a Markov Decision Process using Python dictionaries. The states, actions, transition probabilities, and reward function were defined. The system demonstrates how an agent can select actions to maintain suitable soil moisture and avoid unnecessary watering.
+The Automatic Plant Watering System was successfully represented as a Markov Decision Process (MDP) by defining states, actions, transitions, and rewards.
+The graphical representation clearly shows how watering decisions help maintain the plant's moisture level.
 
 
 
